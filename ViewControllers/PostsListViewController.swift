@@ -93,7 +93,17 @@ class PostsListViewController: UIViewController {
             guard let self = self else { return }
             DispatchQueue.main.async {
                 self.isPostsLoading = false
-                self.posts = data?.posts.map { Post(id: $0.id, userName: $0.user.name, createdDate: $0.createdAt.postedDate(), message: $0.text, image: $0.postImage, video: $0.postVideo, isBookmarked: $0.isBookmarked) } ?? []
+                self.posts = data?.posts.map {
+                    Post(
+                        id: $0.id,
+                        userName: $0.user.name,
+                        createdDate: $0.createdAt.postedDate(),
+                        message: $0.text,
+                        image: $0.postImage,
+                        video: $0.postVideo,
+                        isBookmarked: $0.isBookmarked
+                    )
+                } ?? []
                 self.noPostsPlaceholderView.isHidden = (self.posts.isEmpty ? false : true)
                 self.hideFetchPostsError()
                 self.postsTableView.reloadData()
@@ -164,13 +174,42 @@ extension PostsListViewController: UITableViewDataSource {
         }
         cell.onClickPlayVideoAction = { [weak self] videoURL in
             guard let self = self else { return }
+            
             DispatchQueue.main.async {
-                let player = AVPlayer(url: videoURL)
-                let playerVC = AVPlayerViewController()
-                playerVC.player = player
-                self.present(playerVC, animated: true) {
-                    playerVC.player?.play()
-                }
+                self.showProgressView()
+                
+                URLSession.shared.dataTask(with: videoURL) { [weak self] data, response, error in
+                    guard let self = self else { return }
+                    
+                    DispatchQueue.main.async {
+                        self.hideProgressView()
+                        
+                        if let error = error {
+                            self.showError(with: error.localizedDescription)
+                            return
+                        }
+                        
+                        let fileManager = FileManager.default
+                        if let serverSuggestedFilename = response?.suggestedFilename,
+                           let documentsDirectoryURL = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first {
+                            // create a destination url with the server suggested file name via response
+                            let destinationURL = documentsDirectoryURL.appendingPathComponent("\(Date().timeIntervalSince1970)_\(serverSuggestedFilename)")
+                            
+                            if fileManager.createFile(atPath: destinationURL.path, contents: data) {
+                                
+                                let player = AVPlayer(url: destinationURL)
+                                let playerVC = AVPlayerViewController()
+                                playerVC.player = player
+                                
+                                self.present(playerVC, animated: true) {
+                                    playerVC.player?.play()
+                                }
+                            }
+                        } else {
+                            self.showError(with: "Cannot play this video!")
+                        }
+                    }
+                }.resume()
             }
         }
         return cell

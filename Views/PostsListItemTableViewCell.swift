@@ -24,7 +24,16 @@ class PostsListItemTableViewCell: UITableViewCell {
         let video: String?
         var isBookmarked: Bool
         
-        init(id: Int, userImage: String? = nil, userName: String, createdDate: String, message: String, image: String?, video: String?, isBookmarked: Bool) {
+        init(
+            id: Int,
+            userImage: String? = nil,
+            userName: String,
+            createdDate: String,
+            message: String,
+            image: String?,
+            video: String?,
+            isBookmarked: Bool
+        ) {
             self.id = id
             self.userImage = userImage
             self.userName = userName
@@ -42,7 +51,11 @@ class PostsListItemTableViewCell: UITableViewCell {
     @IBOutlet weak var createdDateLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var postImageView: UIImageView!
-    @IBOutlet weak var playVideoButton: UIButton!
+    @IBOutlet weak var playVideoButton: UIButton! {
+        didSet {
+            playVideoButton.layer.cornerRadius = 6
+        }
+    }
     @IBOutlet weak var bookmarkButton: UIButton! {
         didSet {
             bookmarkButton.setTitle("", for: .normal)
@@ -52,7 +65,7 @@ class PostsListItemTableViewCell: UITableViewCell {
     var post: Post!
     var videoURL: URL!
     var onClickBookmarkAction: (() -> Void)?
-    var onClickPlayVideoAction:((URL) -> Void)?
+    var onClickPlayVideoAction: ((URL) -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -89,5 +102,3 @@ class PostsListItemTableViewCell: UITableViewCell {
         self.onClickPlayVideoAction!(self.videoURL)
     }
 }
-
-//https://drive.google.com/file/d/12ElFsdWec7BE-lLK_BW4iXmKFiSxgTz0/view?usp=sharing
