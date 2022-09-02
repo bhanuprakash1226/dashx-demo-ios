@@ -56,7 +56,7 @@ class BookmarksListViewController: UIViewController {
             guard let self = self else { return }
             DispatchQueue.main.async {
                 self.isPostsLoading = false
-                self.posts = data?.posts.map { Post(id: $0.id, userName: $0.user.name, createdDate: $0.createdAt.postedDate(), message: $0.text, isBookmarked: $0.isBookmarked) } ?? []
+                self.posts = data?.posts.map { Post(id: $0.id, userName: $0.user.name, createdDate: $0.createdAt.postedDate(), message: $0.text, image: $0.postImage, video: $0.postVideo, isBookmarked: $0.isBookmarked) } ?? []
                 self.noPostsPlaceholderView.isHidden = (self.posts.isEmpty ? false : true)
                 self.postsTableView.reloadData()
             }

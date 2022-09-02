@@ -88,16 +88,19 @@ class APIClient {
         network.makeAPICall(path: path, httpMethod: .get, onSuccess: onSuccess, onError: onError)
     }
     
-    static func addPost(text: String,
+    static func addPost(addPostData: AddPostData,
                         onSuccess: @escaping (AddPostResponse?) -> Void,
                         onError: @escaping (NetworkError) -> Void) {
         // Prepare request parts
         let path = "/posts"
-        let params: NSDictionary = [
-            "text": text
-        ]
-        
-        network.makeAPICall(path: path, params: params, onSuccess: onSuccess, onError: onError)
+        do {
+            let data = try JSONEncoder().encode(addPostData)
+            let object = try JSONSerialization.jsonObject(with: data)
+            network.makeAPICall(path: path, params: object as? NSDictionary, onSuccess: onSuccess, onError: onError)
+        } catch {
+            // return this error in a callback
+            print(error.localizedDescription)
+        }
     }
     
     static func contactUs(name: String,

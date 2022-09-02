@@ -7,6 +7,8 @@
 
 import Foundation
 import UIKit
+import AVFoundation
+import AVKit
 
 class PostsListItemTableViewCell: UITableViewCell {
     static let identifier = "PostsListItemTableViewCell"
@@ -18,14 +20,18 @@ class PostsListItemTableViewCell: UITableViewCell {
         let userName: String
         let createdDate: String
         let message: String
+        let image: String?
+        let video: String?
         var isBookmarked: Bool
         
-        init(id: Int, userImage: String? = nil, userName: String, createdDate: String, message: String, isBookmarked: Bool) {
+        init(id: Int, userImage: String? = nil, userName: String, createdDate: String, message: String, image: String?, video: String?, isBookmarked: Bool) {
             self.id = id
             self.userImage = userImage
             self.userName = userName
             self.createdDate = createdDate
             self.message = message
+            self.image = image
+            self.video = video
             self.isBookmarked = isBookmarked
         }
     }
@@ -35,6 +41,8 @@ class PostsListItemTableViewCell: UITableViewCell {
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var createdDateLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var postImageView: UIImageView!
+    @IBOutlet weak var playVideoButton: UIButton!
     @IBOutlet weak var bookmarkButton: UIButton! {
         didSet {
             bookmarkButton.setTitle("", for: .normal)
@@ -42,7 +50,9 @@ class PostsListItemTableViewCell: UITableViewCell {
     }
     
     var post: Post!
+    var videoURL: URL!
     var onClickBookmarkAction: (() -> Void)?
+    var onClickPlayVideoAction:((URL) -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -50,6 +60,7 @@ class PostsListItemTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        self.postImageView?.image = nil
     }
     
     // MARK: Actions
@@ -58,10 +69,25 @@ class PostsListItemTableViewCell: UITableViewCell {
     }
     
     func setUpData(post: Post) {
+        postImageView.isHidden = true
+        playVideoButton.isHidden = true
         userNameLabel.text = post.userName
         createdDateLabel.text = post.createdDate
         messageLabel.text = post.message
         bookmarkButton.setImage(post.isBookmarked ? UIImage(systemName: "bookmark.fill") : UIImage(systemName: "bookmark"), for: .normal)
+        if let imageURL = post.image, let image = imageURL.getImage() {
+            postImageView.isHidden = false
+            postImageView.image = image
+        }
+        if let videoURLString = post.video, let videoURL = URL(string: videoURLString) {
+            self.videoURL = videoURL
+            playVideoButton.isHidden = false
+        }
+    }
+    
+    @IBAction func onClickPlayVideo(_ sender: UIButton) {
+        self.onClickPlayVideoAction!(self.videoURL)
     }
 }
 
+//https://drive.google.com/file/d/12ElFsdWec7BE-lLK_BW4iXmKFiSxgTz0/view?usp=sharing

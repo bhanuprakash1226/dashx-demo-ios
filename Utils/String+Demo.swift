@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension String {
     func isValidEmail() -> Bool {
@@ -24,5 +25,14 @@ extension String {
         let date = DateFormatter.fullDate.date(from: self) ?? Date()
         let postedDate = "Posted \(Date.timeIntervalDifference(toDate: date))"
         return postedDate
+    }
+    
+    func getImage() -> UIImage? {
+        if let url = URL(string: self),
+           let imageData = try? Data(contentsOf: url),
+           let image = UIImage(data: imageData) {
+            return image
+        }
+        return nil
     }
 }

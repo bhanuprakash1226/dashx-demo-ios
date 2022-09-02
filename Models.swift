@@ -68,6 +68,13 @@ struct PostsResponse: Codable {
     let posts: [Post]
 }
 
+// MARK: - AddPostData
+struct AddPostData: Codable {
+    var text: String?
+    var image: AssetData?
+    var video: AssetData?
+}
+
 // MARK: - AddPostResponse
 struct AddPostResponse: Codable {
     let message: String
@@ -78,20 +85,27 @@ struct AddPostResponse: Codable {
 struct Post: Codable {
     let id, userID: Int
     let text: String
-    // MARK: Type isn't defined, always null
-    // let image, video: Type Don't know?
+    let image: AssetData?
+    let video: AssetData?
     let createdAt, updatedAt: String
     let bookmarkedAt: String?
     let user: User
     var isBookmarked: Bool {
         bookmarkedAt != nil
     }
+    var postImage: String? {
+        return image?.url
+    }
+    var postVideo: String? {
+        return video?.url
+    }
     
     enum CodingKeys: String, CodingKey {
         case id
         case userID = "user_id"
         case text
-        // case image, video
+        case image = "image"
+        case video = "video"
         case createdAt = "created_at"
         case updatedAt = "updated_at"
         case bookmarkedAt = "bookmarked_at"
@@ -216,6 +230,11 @@ struct PreferenceDataResponse: Codable {
 struct AssetData: Codable {
     var status: String?
     var url: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case status
+        case url
+    }
 }
 
 // MARK: - ExternalAssetResponse

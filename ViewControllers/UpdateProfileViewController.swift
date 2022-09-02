@@ -312,6 +312,7 @@ extension UpdateProfileViewController: UINavigationControllerDelegate, UIImagePi
         imagePickerVC = UIImagePickerController()
         imagePickerVC.sourceType = .photoLibrary
         imagePickerVC.delegate = self
+        imagePickerVC.allowsEditing = true
         present(imagePickerVC, animated: true)
     }
     
@@ -343,11 +344,10 @@ extension UpdateProfileViewController: UINavigationControllerDelegate, UIImagePi
             
             // FIXME: Limited library access issues
             if #available(iOS 14, *) {
-                PHPhotoLibrary.shared().presentLimitedLibraryPicker(from: self)
+//                PHPhotoLibrary.shared().presentLimitedLibraryPicker(from: self)
             } else {
                 // Fallback on earlier versions
             }
-            present(imagePickerVC, animated: true)
         }
         actionSheet.addAction(selectPhotosAction)
         
@@ -470,6 +470,7 @@ extension UpdateProfileViewController: PHPhotoLibraryChangeObserver {
         imagePickerVC = UIImagePickerController()
         imagePickerVC.delegate = self
         imagePickerVC.sourceType = .camera
+        imagePickerVC.allowsEditing = true
         present(imagePickerVC, animated: true)
     }
     
