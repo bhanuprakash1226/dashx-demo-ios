@@ -17,7 +17,6 @@ class ForgotPasswordViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var forgotPasswordButton: UIButton! {
         didSet {
             forgotPasswordButton.isEnabled = false
@@ -53,7 +52,7 @@ class ForgotPasswordViewController: UIViewController {
     
     func processForgotPasswordRequest() {
         if !(emailField.text?.isValidEmail() ?? false) {
-            errorLabel.text = "Please enter a valid email"
+            showError(with: "Please enter a valid email")
             return
         }
         
@@ -74,7 +73,7 @@ class ForgotPasswordViewController: UIViewController {
                 self.forgotPasswordButton.setTitle("Forgot Password", for: UIControl.State.disabled)
                 
                 self.setFormState(isEnabled: true)
-                self.errorLabel.text = networkError.message
+                self.showError(with: networkError.message)
             }
         }
     }
@@ -89,9 +88,6 @@ class ForgotPasswordViewController: UIViewController {
     
     @objc
     func textFieldEditingChanged(_ textField: UITextField) {
-        if errorLabel.text != nil {
-            errorLabel.text = ""
-        }
         
         let forgotPasswordButtonEnabled = !(emailField.text?.isEmpty ?? true)
         forgotPasswordButton.isEnabled = forgotPasswordButtonEnabled

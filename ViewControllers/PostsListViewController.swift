@@ -15,11 +15,7 @@ class PostsListViewController: UIViewController {
     static let identifier = "PostsListViewController"
     
     // MARK: Outlets
-    @IBOutlet weak var fetchPostsErrorLabel: UILabel! {
-        didSet {
-            hideFetchPostsError()
-        }
-    }
+    
     @IBOutlet weak var postsTableView: UITableView!
     @IBOutlet weak var noPostsPlaceholderView: UIView!
     
@@ -105,7 +101,6 @@ class PostsListViewController: UIViewController {
                     )
                 } ?? []
                 self.noPostsPlaceholderView.isHidden = (self.posts.isEmpty ? false : true)
-                self.hideFetchPostsError()
                 self.postsTableView.reloadData()
             }
         } onError: { [weak self] networkError in
@@ -115,7 +110,7 @@ class PostsListViewController: UIViewController {
                 self.isPostsLoading = false
                 self.postsTableView.reloadData()
                 self.noPostsPlaceholderView.isHidden = true
-                self.showFetchPostsError(networkError.message)
+                self.showError(with: networkError.message)
             }
         }
     }
@@ -140,16 +135,6 @@ class PostsListViewController: UIViewController {
         let navVC = UINavigationController(rootViewController: createPostVC)
         navVC.modalPresentationStyle = .fullScreen
         self.present(navVC, animated: true)
-    }
-    
-    func hideFetchPostsError() {
-        fetchPostsErrorLabel.text = ""
-        fetchPostsErrorLabel.isHidden = true
-    }
-    
-    func showFetchPostsError(_ description: String?) {
-        fetchPostsErrorLabel.text = description ?? "Something went wrong!"
-        fetchPostsErrorLabel.isHidden = false
     }
 }
 

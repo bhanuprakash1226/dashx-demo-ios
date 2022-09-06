@@ -28,7 +28,6 @@ class ContactUsViewController: UIViewController {
             showPlaceholderTextForFeedbackTextView()
         }
     }
-    @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var submitButton: UIButton! {
         didSet {
             submitButton.isEnabled = false
@@ -80,7 +79,7 @@ class ContactUsViewController: UIViewController {
     
     func performContactUs() {
         if !(emailTextField.text?.isValidEmail() ?? false) {
-            errorLabel.text = "Please enter a valid email"
+            showError(with: "Please enter a valid email")
             return
         }
         
@@ -99,7 +98,7 @@ class ContactUsViewController: UIViewController {
             DispatchQueue.main.async {
                 self.formState(isEnabled: false)
                 self.submitButton.setTitle("Submit", for: UIControl.State.disabled)
-                self.errorLabel.text = networkError.message
+                self.showError(with: networkError.message)
             }
         }
     }
@@ -122,7 +121,6 @@ class ContactUsViewController: UIViewController {
     }
     
     func validateFields() {
-        errorLabel.text = ""
         
         var submitButtonEnabled = [nameTextField,
                                      emailTextField].filter { $0.text?.isEmpty ?? true }.count == 0

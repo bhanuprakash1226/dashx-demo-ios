@@ -35,7 +35,6 @@ class RegisterViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var registerButton: UIButton! {
         didSet {
             registerButton.isEnabled = false
@@ -77,7 +76,7 @@ class RegisterViewController: UIViewController {
     
     func performRegistration() {
         if !(emailField.text?.isValidEmail() ?? false) {
-            errorLabel.text = "Please enter a valid email"
+            showError(with: "Please enter a valid email")
             return
         }
         
@@ -102,7 +101,7 @@ class RegisterViewController: UIViewController {
                 self.registerButton.setTitle("Register", for: UIControl.State.disabled)
                 
                 self.setFormState(isEnabled: true)
-                self.errorLabel.text = networkError.message
+                self.showError(with: networkError.message)
             }
         }
     }
@@ -120,9 +119,6 @@ class RegisterViewController: UIViewController {
     
     @objc
     func textFieldEditingChanged(_ textField: UITextField) {
-        if errorLabel.text != nil {
-            errorLabel.text = ""
-        }
         
         let registerButtonEnabled = [firstNameField,
                                      lastNameField,

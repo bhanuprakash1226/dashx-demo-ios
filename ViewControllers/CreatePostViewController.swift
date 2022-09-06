@@ -31,7 +31,17 @@ class CreatePostViewController: UIViewController {
         }
     }
     @IBOutlet weak var uploadImage: UIImageView!
-    @IBOutlet weak var uploadVideoView: UIView!
+    @IBOutlet weak var uploadImageButton: UIButton! {
+        didSet {
+            uploadImageButton.getGrayStyle()
+        }
+    }
+    @IBOutlet weak var uploadVideoView: UIView! {
+        didSet {
+            uploadVideoButton.getGrayStyle()
+        }
+    }
+    @IBOutlet weak var uploadVideoButton: UIButton!
     @IBOutlet weak var postButton: UIButton! {
         didSet {
             postButton.layer.cornerRadius = 6
@@ -208,8 +218,7 @@ class CreatePostViewController: UIViewController {
     }
     
     func showAddPostError(_ description: String?) {
-//        addPostErrorLabel.text = description ?? "Something went wrong!"
-//        addPostErrorLabel.isHidden = false
+        showError(with: description ?? "Something went wrong!")
     }
     
     func showPlaceholderTextForMessageTextView() {

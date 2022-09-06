@@ -24,7 +24,6 @@ class LoginViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var loginButton: UIButton! {
         didSet {
             loginButton.isEnabled = false
@@ -82,7 +81,7 @@ class LoginViewController: UIViewController {
     
     func performLogin() {
         if !(emailField.text?.isValidEmail() ?? false) {
-            errorLabel.text = "Please enter a valid email"
+            showError(with: "Please enter a valid email")
             return
         }
         
@@ -105,7 +104,7 @@ class LoginViewController: UIViewController {
                 self.loginButton.setTitle("Login", for: UIControl.State.disabled)
                 
                 self.setFormState(isEnabled: true)
-                self.errorLabel.text = networkError.message
+                self.showError(with: networkError.message)
             }
         }
     }
@@ -141,9 +140,6 @@ class LoginViewController: UIViewController {
     
     @objc
     func textFieldEditingChanged(_ textField: UITextField) {
-        if errorLabel.text != nil {
-            errorLabel.text = ""
-        }
         
         let registerButtonEnabled = [emailField,
                                      passwordField].filter { $0.text?.isEmpty ?? true }.count == 0

@@ -102,7 +102,7 @@ extension MoreItemsViewController: UITableViewDataSource {
         let screenItemIndex = indexPath.row
         let cellTitle = screenItems[screenItemIndex].title
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MoreScreenTableViewCell",
+        let cell = tableView.dequeueReusableCell(withIdentifier: MoreScreenTableViewCell.identifier,
                                                  for: indexPath) as! MoreScreenTableViewCell
         
         cell.titleLabel.text = cellTitle

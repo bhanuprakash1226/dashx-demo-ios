@@ -8,7 +8,7 @@
 import UIKit
 
 class MoreScreenTableViewCell: UITableViewCell {
-    static let idenitifier = "MoreScreenTableViewCell"
+    static let identifier = "MoreScreenTableViewCell"
     
     @IBOutlet var titleLabel: UILabel!
     

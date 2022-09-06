@@ -38,7 +38,6 @@ class UpdateProfileViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var updateProfileButton: UIButton! {
         didSet {
             updateProfileButton.isEnabled = false
@@ -203,7 +202,7 @@ class UpdateProfileViewController: UIViewController {
     
     func performUpdateProfile() {
         if !(emailField.text?.isValidEmail() ?? false) {
-            errorLabel.text = "Please enter a valid email"
+            showError(with: "Please enter a valid email")
             return
         }
         
@@ -228,7 +227,7 @@ class UpdateProfileViewController: UIViewController {
                     self.updateProfileButton.setTitle("Update Profile", for: UIControl.State.disabled)
                     
                     self.setFormState(isEnabled: true)
-                    self.errorLabel.text = networkError.message
+                    self.showError(with: networkError.message)
                 }
             }
         }
@@ -246,9 +245,6 @@ class UpdateProfileViewController: UIViewController {
     
     @objc
     func textFieldEditingChanged(_ textField: UITextField) {
-        if errorLabel.text != nil {
-            errorLabel.text = ""
-        }
         
         let isUpdateButtonEnabled = [firstNameField,
                                      lastNameField,
@@ -340,7 +336,7 @@ extension UpdateProfileViewController: UINavigationControllerDelegate, UIImagePi
                                             preferredStyle: .actionSheet)
         
         let selectPhotosAction = UIAlertAction(title: "Select more photos",
-                                               style: .default) { [unowned self] (_) in
+                                               style: .default) { _ in
             
             // FIXME: Limited library access issues
             if #available(iOS 14, *) {

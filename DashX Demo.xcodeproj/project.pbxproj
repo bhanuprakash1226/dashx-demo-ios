@@ -22,6 +22,7 @@
 		3DE983E9286F1DC800C615AB /* MoreScreenTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE983E8286F1DC800C615AB /* MoreScreenTableViewCell.swift */; };
 		659A10192DA2623613BBBB2F /* Pods_DashX_Demo_DashX_DemoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9BD4AA7BDA9BD372761F9D0 /* Pods_DashX_Demo_DashX_DemoUITests.framework */; };
 		7E8841BC28B78082004E033E /* CreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8841BB28B78082004E033E /* CreatePostViewController.swift */; };
+		7EACBF9028C72A3A0032C2DB /* UIButton+Demo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EACBF8F28C72A3A0032C2DB /* UIButton+Demo.swift */; };
 		7EF3B9B71DAE17B626CFDCF9 /* Pods_DashX_DemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 810B879060E3D71240253C05 /* Pods_DashX_DemoTests.framework */; };
 		ED2AF0EF2864833800374BD3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2AF0EE2864833800374BD3 /* AppDelegate.swift */; };
 		ED2AF0F12864833800374BD3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2AF0F02864833800374BD3 /* SceneDelegate.swift */; };
@@ -83,6 +84,7 @@
 		4EE518A63930D6B27C414750 /* Pods-DashX Demo-DashX DemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashX Demo-DashX DemoUITests.release.xcconfig"; path = "Target Support Files/Pods-DashX Demo-DashX DemoUITests/Pods-DashX Demo-DashX DemoUITests.release.xcconfig"; sourceTree = "<group>"; };
 		6775E11ECEA6C961565A97BA /* Pods-DashX Demo-DashX DemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashX Demo-DashX DemoUITests.debug.xcconfig"; path = "Target Support Files/Pods-DashX Demo-DashX DemoUITests/Pods-DashX Demo-DashX DemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		7E8841BB28B78082004E033E /* CreatePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewController.swift; sourceTree = "<group>"; };
+		7EACBF8F28C72A3A0032C2DB /* UIButton+Demo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIButton+Demo.swift"; path = "Utils/UIButton+Demo.swift"; sourceTree = SOURCE_ROOT; };
 		810B879060E3D71240253C05 /* Pods_DashX_DemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DashX_DemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		81396BD69BF4B9C0E4F9ACD7 /* Pods-DashX DemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashX DemoTests.debug.xcconfig"; path = "Target Support Files/Pods-DashX DemoTests/Pods-DashX DemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A1144A40DE0301F8CCCB4A98 /* Pods-DashX DemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashX DemoTests.release.xcconfig"; path = "Target Support Files/Pods-DashX DemoTests/Pods-DashX DemoTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 				3D9C0EDE2865847A00638BF2 /* NetworkUtils.swift */,
 				ED4799542864B21900EABFD7 /* ViewController+Demo.swift */,
 				ED4799572864BC0000EABFD7 /* String+Demo.swift */,
+				7EACBF8F28C72A3A0032C2DB /* UIButton+Demo.swift */,
 				3D9C0EE2286598DF00638BF2 /* FormUtils.swift */,
 				3D9821F7286AB85800549F7C /* LocalStorage.swift */,
 				ED48841A288175D900F8F07A /* UIApplication+Demo.swift */,
@@ -533,6 +536,7 @@
 				3DE983E9286F1DC800C615AB /* MoreScreenTableViewCell.swift in Sources */,
 				ED4799502864ADDB00EABFD7 /* RegisterViewController.swift in Sources */,
 				ED3EB08428923B6000FEB6EF /* BookmarksListViewController.swift in Sources */,
+				7EACBF9028C72A3A0032C2DB /* UIButton+Demo.swift in Sources */,
 				EDC40D4E288F0D180075F470 /* ProgressView.swift in Sources */,
 				7E8841BC28B78082004E033E /* CreatePostViewController.swift in Sources */,
 				EDD35389289BA5B9004B77EF /* Constants.swift in Sources */,
