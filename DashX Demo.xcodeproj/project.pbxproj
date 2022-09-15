@@ -344,6 +344,9 @@
 				Base,
 			);
 			mainGroup = ED2AF0E22864833800374BD3;
+			packageReferences = (
+				ED7EB87428C8A1A100110816 /* XCRemoteSwiftPackageReference "swift-graphql" */,
+			);
 			productRefGroup = ED2AF0EC2864833800374BD3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -714,8 +717,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = AS5VW845N7;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -735,7 +738,7 @@
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dashxdemo.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development com.dashxdemo.app";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -892,6 +895,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		ED7EB87428C8A1A100110816 /* XCRemoteSwiftPackageReference "swift-graphql" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/maticzav/swift-graphql/";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = ED2AF0E32864833800374BD3 /* Project object */;
 }

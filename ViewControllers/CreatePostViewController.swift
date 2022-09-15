@@ -191,7 +191,7 @@ class CreatePostViewController: UIViewController {
         addPostData?.text = messageTextView.text
         
         if let postData = addPostData {
-            APIClient.addPost(addPostData: postData) { [weak self] data in
+            APIClient.addPost(addPostData: postData) { [weak self] _ in
                 guard let self = self else { return }
                 DispatchQueue.main.async {
                     self.postButton.titleLabel?.text = "Posted"
@@ -292,7 +292,6 @@ extension CreatePostViewController: UITextViewDelegate {
     }
 }
 
-
 extension CreatePostViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     func showUI(for status: PHAuthorizationStatus) {
@@ -354,13 +353,13 @@ extension CreatePostViewController: UINavigationControllerDelegate, UIImagePicke
         
         let selectPhotosAction = UIAlertAction(title: "Select more photos",
                                                style: .default) { _ in
-            
-            // FIXME: Limited library access issues
-            if #available(iOS 14, *) {
-//                PHPhotoLibrary.shared().presentLimitedLibraryPicker(from: self)
-            } else {
-                // Fallback on earlier versions
-            }
+            /** FIXME: Limited library access issues
+             if #available(iOS 14, *) {
+             // PHPhotoLibrary.shared().presentLimitedLibraryPicker(from: self)
+             } else {
+             // Fallback on earlier versions
+             }
+             */
         }
         actionSheet.addAction(selectPhotosAction)
         
@@ -408,7 +407,8 @@ extension CreatePostViewController: UINavigationControllerDelegate, UIImagePicke
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         DispatchQueue.main.async {
             picker.dismiss(animated: true)
             
@@ -416,7 +416,6 @@ extension CreatePostViewController: UINavigationControllerDelegate, UIImagePicke
             if mediaType == .image, let image = info[.originalImage] as? UIImage {
                 
                 self.uploadImage.image = image
-                
                 
                 if picker.sourceType == .camera {
                     let imageName = UUID().uuidString
@@ -444,11 +443,11 @@ extension CreatePostViewController: UINavigationControllerDelegate, UIImagePicke
     
     func uploadPostMedia(fileURL: URL, mediaType: UploadMediaType) {
         showProgressView()
-        let externalColumnId = mediaType == UploadMediaType.image ? "f03b20a8-2375-4f8d-bfbe-ce35141abe98": "651144a7-e821-4af7-bb2b-abb2807cf2c9"
+        let externalColumnId = mediaType == UploadMediaType.image ? Constants.AssetExternalColumnIDs.postImage.rawValue: Constants.AssetExternalColumnIDs.postVideo.rawValue
         DashX.uploadExternalAsset(fileURL: fileURL, externalColumnId: externalColumnId) { response in
             DispatchQueue.main.async {
                 self.hideProgressView()
-                if let jsonDictionary = response.jsonValue as? [String: Any] {
+                if let jsonDictionary = response as? [String: Any] {
                     do {
                         let json = try JSONSerialization.data(withJSONObject: jsonDictionary)
                         let externalAssetData = try JSONDecoder().decode(ExternalAssetResponse.self, from: json)

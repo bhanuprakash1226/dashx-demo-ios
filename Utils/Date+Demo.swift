@@ -1,19 +1,19 @@
 import Foundation
 
 extension Date {
-    static var second : Double {
+    static var second: Double {
         return 1
     }
     
-    static var minute : Double {
+    static var minute: Double {
         return second * 60
     }
     
-    static var hour : Double {
+    static var hour: Double {
         return minute * 60
     }
     
-    static var day : Double {
+    static var day: Double {
         return hour * 24
     }
     

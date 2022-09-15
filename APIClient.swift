@@ -72,8 +72,11 @@ class APIClient {
         let path = "/update-profile"
         do {
             let data = try JSONEncoder().encode(user)
-            let object = try JSONSerialization.jsonObject(with: data)
-            network.makeAPICall(path: path, httpMethod: .patch, params: object as? NSDictionary, onSuccess: onSuccess, onError: onError)
+            if let jsonObject = try JSONSerialization.jsonObject(with: data) as? NSDictionary {
+                network.makeAPICall(path: path, httpMethod: .patch, params: jsonObject, onSuccess: onSuccess, onError: onError)
+            } else {
+                // return an error: invalid `user` data
+            }
         } catch {
             // return this error in a callback
             print(error.localizedDescription)
@@ -113,7 +116,7 @@ class APIClient {
         let params: NSDictionary = [
             "name": name,
             "email": email,
-            "feedback" : feedback
+            "feedback": feedback
         ]
         
         network.makeAPICall(path: path, params: params, onSuccess: onSuccess, onError: onError)
